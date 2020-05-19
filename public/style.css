@@ -1,0 +1,41 @@
+#grid {
+  display: grid;
+  grid: "t  pn s"
+  "pw b  pe"
+  "ps ps ps"
+  "c  c  c";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
+}
+#title {
+  grid-area: t;
+}
+#score {
+  grid-area: s;
+}
+#board {
+  grid-area: b;
+  justify-self: center;
+  background-color: #6f6;
+  min-height: 12em;
+  min-width: 12em;
+}
+#chat {
+  grid-area: c;
+}
+#players {
+  grid-area: ps;
+  justify-self: center;
+}
+#playere {
+  grid-area: pe;
+  align-self: center;
+}
+#playern {
+  grid-area: pn;
+  justify-self: center;
+}
+#playerw {
+  grid-area: pw;
+  align-self: center;
+}
