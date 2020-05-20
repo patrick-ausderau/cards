@@ -1,3 +1,6 @@
+body {
+  font-family: "Liberation Sans", Arial, sans-serif;
+}
 #grid {
   display: grid;
   grid: "t  pn s"
@@ -29,7 +32,7 @@
 }
 #playere {
   grid-area: pe;
-  align-self: center;
+  align-self: top;
 }
 #playern {
   grid-area: pn;
@@ -37,8 +40,20 @@
 }
 #playerw {
   grid-area: pw;
-  align-self: center;
+  align-self: top;
 }
 .back {
   color: #66f;
+}
+section h2 {
+  margin-bottom: 2px;
+}
+#playere div, #playerw div {
+  line-height: 1.3;
+}
+#playere h2, #playerw h2 {
+  margin-top: 5px;
+}
+#board h3 {
+  display: inline;
 }
