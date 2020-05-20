@@ -1,14 +1,47 @@
 'use strict';
-const cardperuser = 9; //depends on the game rules
-const back = document.querySelectorAll('.back');
-console.log('hello', back);
-back.forEach(element => {
-element.innerHTML = '';
- for(let i = 0; i < cardperuser; i++) {
-   element.innerHTML += '🂠';
-   if(element.parentElement.id != 'playern') element.innerHTML += '<br>';
- }
-});
+// local user sit south. other players counterclockwise positions relative to that.
+const me = 3; //position will come from socket
+
+const drawBack = (element, amount, vertical) => {
+  element.innerHTML = `(${amount} cards)<br>`;
+  for(let i = 0; i < amount; i++) {
+    element.innerHTML += '🂠';
+    if(vertical) element.innerHTML += '<br>';
+  }
+};
+//const initGame; // start a new game, match socre to 0, eventually change player position,...
+const initMatch = (palyers) => {
+  const cardperuser = 9; //depends on the game rules, will come from socket
+  const back = document.querySelectorAll('.back');
+  console.log('hello', back);
+  back.forEach(element => {
+    drawBack(element, 9, element.parentElement.id != 'playern');
+  });
+};
+// dummy test data
+const testplayers = [
+  {
+    username: 'Mary',
+    position: 1,
+    backface: 9,
+  },
+  {
+    username: 'Bob',
+    position: 2,
+    backface: 9,
+  },
+  {
+    username: 'John',
+    position: 3,
+    private: ['🂨', '🂺', '🂻', '🂾', '🃍', '🃁','🃖 ', '🃚', '🃞'],
+  },
+  {
+    username: 'Alice',
+    position: 4,
+    backface: 6,
+  },
+];
+initMatch(testplayers);
 //♠    U2660
 //♡    U2661
 //♢    U2662
