@@ -40,7 +40,7 @@ const initMatch = (players) => {
     if(player.position == me) {
       username.innerHTML += ' (ME):';
       // show my playable cards
-      drawPlayable(element.querySelector('.card'), player.private);
+      drawPlayable(element.querySelector('.card #private'), player.private);
     } else {
       username.innerHTML += ':';
       drawBack(element.querySelector('.back'), player.backface, element.id != 'playern');
@@ -71,6 +71,41 @@ const testplayers = [
 },
 ];
 initMatch(testplayers);
+
+// Drag and drop
+const mime = 'text/plain';
+const dragStart = (event) => {
+  event.dataTransfer.effectAllowed = 'move';
+  event.dataTransfer.setData(mime, event.target.id);
+};
+
+const dragOver = (event) => {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'move';
+};
+
+const dragDrop = (event) => {
+  event.preventDefault();
+  console.log('drop target', event.target, );
+  if (event.target instanceof HTMLSpanElement) {
+    event.target.after(document.getElementById(event.dataTransfer.getData(mime)));
+  } else {
+    event.target.appendChild(document.getElementById(event.dataTransfer.getData(mime)));
+  }
+};
+
+const privateArea = document.getElementById('private');
+const publicArea = document.getElementById('public');
+const board =  document.getElementById('board');
+privateArea.ondragstart = dragStart;
+privateArea.ondragover = dragOver;
+privateArea.ondrop = dragDrop;
+publicArea.ondragstart = dragStart;
+publicArea.ondragover = dragOver;
+publicArea.ondrop = dragDrop;
+board.ondragstart = dragStart;
+board.ondragover = dragOver;
+board.ondrop = dragDrop;
 //♠    U2660
 //♡    U2661
 //♢    U2662

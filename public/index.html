@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Cards</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <div id="grid">
-    <header id="title"><h1>title</h1></header>
-    <section id="playern"><h2></h2> <div class="card back"></div></section>
-    <section id="socre"><h2>score</h2></section>
-    <section id="playerw"><h2></h2> <div class="card back"></div></section>
-    <section id="board"><h3>board</h3></section>
-    <section id="playere"><h2></h2> <div class="card back"></div></section>
-    <section id="players"><h2></h2> <div class="card"></div></section>
-    <section id="chat"><h2>chat</h2></section>
-  </div>
-  <script src="cards.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cards</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="grid">
+      <header id="title">
+        <h1>title</h1>
+      </header>
+      <section id="playern">
+        <h2></h2>
+        <div class="card back"></div>
+      </section>
+      <section id="socre">
+        <h2>score</h2>
+      </section>
+      <section id="playerw">
+        <h2></h2>
+        <div class="card back"></div>
+      </section>
+      <section id="board">
+        <h3>board</h3>
+      </section>
+      <section id="playere">
+        <h2></h2>
+        <div class="card back"></div>
+      </section>
+      <section id="players">
+        <h2></h2>
+        <div class="card">
+          <div class="box">
+            <div id="private"></div>
+            Private (only visible to you)
+          </div>
+          <div class="box">
+            <div id="public"></div>
+            Public (show to every player)
+          </div>
+        </div>
+        <div id="controls">controls</div>
+      </section>
+      <section id="chat">
+        <h2>chat</h2>
+      </section>
+    </div>
+    <script src="cards.js"></script>
+  </body>
 </html>

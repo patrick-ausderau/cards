@@ -49,6 +49,8 @@ body {
 }
 .visible {
   font-size: 200%;
+  background-color: white;
+  color: black;
 }
 .red {
   color: red;
@@ -64,4 +66,11 @@ section h2 {
 }
 #board h3 {
   display: inline;
+}
+.box {
+  border: 1px dotted black;
+  display: inline-block;
+}
+#public, #private {
+  min-height:2.4em;
 }
