@@ -1,6 +1,15 @@
 'use strict';
 // local user sit south. other players counterclockwise positions relative to that.
 const me = 3; //position will come from socket
+const positions = ['players', 'playere', 'playern', 'playerw'];
+const relativePosition = (nbplayers, myposition, playerpos) => {
+  // local player always sit south
+  if (myposition == playerpos) return 'players';
+  if (nbplayers == 2) return 'playern';
+  //todo: if more than 4 players, fix the positions
+  if (myposition < playerpos) return positions[playerpos - myposition];
+  return positions[playerpos - myposition + nbplayers];
+};
 
 const drawBack = (element, amount, vertical) => {
   element.innerHTML = `(${amount} cards)<br>`;
@@ -9,13 +18,34 @@ const drawBack = (element, amount, vertical) => {
     if(vertical) element.innerHTML += '<br>';
   }
 };
+
+const drawPlayable = (parentContainer, cards) => {
+  cards.forEach((card, pos) => {
+    const element = document.createElement('span');
+    element.id = pos + card;
+    element.draggable = true;
+    element.className = 'visible';
+    console.log('codePointAt(0)', card, card.codePointAt(0), '🂱'.codePointAt(0), '🃎'.codePointAt(0));
+    if(card.codePointAt(0) >= '🂱'.codePointAt(0) && card.codePointAt(0) <= '🃎'.codePointAt(0)) element.className += ' red';
+    element.innerHTML = card;
+    parentContainer.appendChild(element);
+  });
+};
+
 //const initGame; // start a new game, match socre to 0, eventually change player position,...
-const initMatch = (palyers) => {
-  const cardperuser = 9; //depends on the game rules, will come from socket
-  const back = document.querySelectorAll('.back');
-  console.log('hello', back);
-  back.forEach(element => {
-    drawBack(element, 9, element.parentElement.id != 'playern');
+const initMatch = (players) => {
+  players.forEach(player => {
+      const element = document.getElementById(relativePosition(players.length, me, player.position));
+      const username = element.querySelector('h2');
+    username.innerHTML = player.username;
+    if(player.position == me) {
+      username.innerHTML += ' (ME):';
+      // show my playable cards
+      drawPlayable(element.querySelector('.card'), player.private);
+    } else {
+      username.innerHTML += ':';
+      drawBack(element.querySelector('.back'), player.backface, element.id != 'playern');
+    }
   });
 };
 // dummy test data
@@ -23,7 +53,7 @@ const testplayers = [
   {
     username: 'Mary',
     position: 1,
-    backface: 9,
+    backface: 7,
   },
   {
     username: 'Bob',
@@ -33,7 +63,7 @@ const testplayers = [
   {
     username: 'John',
     position: 3,
-    private: ['🂨', '🂺', '🂻', '🂾', '🃍', '🃁','🃖 ', '🃚', '🃞'],
+    private: ['🂨', '🂺', '🂻', '🂾', '🃍', '🃁','🃖', '🃚', '🃞'],
   },
   {
     username: 'Alice',

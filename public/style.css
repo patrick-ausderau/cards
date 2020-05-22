@@ -45,6 +45,12 @@ body {
 .back {
   color: #66f;
 }
+.visible {
+  font-size: 200%;
+}
+.red {
+  color: red;
+}
 section h2 {
   margin-bottom: 2px;
 }
