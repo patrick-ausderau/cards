@@ -25,7 +25,6 @@ const drawPlayable = (parentContainer, cards) => {
     element.id = pos + card;
     element.draggable = true;
     element.className = 'visible';
-    console.log('codePointAt(0)', card, card.codePointAt(0), '🂱'.codePointAt(0), '🃎'.codePointAt(0));
     if(card.codePointAt(0) >= '🂱'.codePointAt(0) && card.codePointAt(0) <= '🃎'.codePointAt(0)) element.className += ' red';
     element.innerHTML = card;
     parentContainer.appendChild(element);
@@ -63,13 +62,13 @@ const testplayers = [
   {
     username: 'John',
     position: 3,
-    private: ['🂨', '🂺', '🂻', '🂾', '🃍', '🃁','🃖', '🃚', '🃞'],
+    private: ['🂨', '🂺', '🂻', '🂾','🃖', '🃚', '🃞', '🃍', '🃁'],
   },
   {
     username: 'Alice',
     position: 4,
     backface: 6,
-  },
+},
 ];
 initMatch(testplayers);
 //♠    U2660
