@@ -86,12 +86,19 @@ const dragOver = (event) => {
 
 const dragDrop = (event) => {
   event.preventDefault();
-  console.log('drop target', event.target, );
+  const transferElement = document.getElementById(event.dataTransfer.getData(mime));
+  let targetId = event.target.id;
   if (event.target instanceof HTMLSpanElement) {
-    event.target.after(document.getElementById(event.dataTransfer.getData(mime)));
+    targetId = event.target.parentNode.id;
+    event.target.after(transferElement);
   } else {
-    event.target.appendChild(document.getElementById(event.dataTransfer.getData(mime)));
+    event.target.appendChild(transferElement);
   }
+  const rect = event.target.getBoundingClientRect();
+  console.log('drop target',targetId, event, rect);
+  transferElement.style.position =  (targetId == 'board') ? 'absolute' : 'relative';
+  transferElement.style.top = (targetId == 'board') ? event.clientY - rect.top + 'px' : 0;
+  transferElement.style.left = (targetId == 'board') ? event.clientX - rect.left + 'px' : 0;
 };
 
 const privateArea = document.getElementById('private');
@@ -175,4 +182,15 @@ board.ondrop = dragDrop;
 // 🃝   U1F0DD
 // 🃞   U1F0DE
 // 🃟   U1F0DF
-//
+// U1F0E0       U1F0E1         U1F0E2         U1F0E3
+// 🃠     🃡       🃢       🃣
+// U1F0E4       U1F0E5         U1F0E6         U1F0E7
+// 🃤     🃥       🃦       🃧
+// U1F0E8       U1F0E9         U1F0EA         U1F0EB
+// 🃨     🃩       🃪       🃫
+// U1F0EC       U1F0ED         U1F0EE         U1F0EF
+// 🃬     🃭       🃮       🃯
+// U1F0F0       U1F0F1         U1F0F2         U1F0F3
+// 🃰     🃱       🃲       🃳
+// U1F0F4       U1F0F5
+// 🃴     🃵
