@@ -11,12 +11,28 @@ const relativePosition = (nbplayers, myposition, playerpos) => {
   return positions[playerpos - myposition + nbplayers];
 };
 
-const drawBack = (element, amount, vertical) => {
-  element.innerHTML = `(${amount} cards)<br>`;
-  for(let i = 0; i < amount; i++) {
+const drawBack = (element, player, vertical) => {
+  const amountBack = player.backface || 0;
+  const amountHide = player.hidden || 0;
+  //todo: switch to optional chaining when better browser support
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  const amountVisi = player.public && player.public.length || 0;
+  console.log('player', player, amountVisi);
+  const amount = amountBack + amountHide + amountVisi;
+  //todo: find the space after hidden and private...
+  element.innerHTML = `(${amount} cards${amount > 0 ? `: ${amountBack > 0 ? `${vertical ? '<br>' : ''}${amountBack} private${amountHide + amountVisi > 0 ? `, ${vertical ? '<br>' : ''}` : ''}` : ''} ${amountHide > 0 ? `${amountHide} hidden${amountVisi > 0 ? `, ${vertical ? '<br>' : ''}` : ''}` : ''} ${amountVisi > 0 ? `${amountVisi} visible` : ''}` : ''})<br>`;
+  for(let i = 0; i < player.backface; i++) {
+    //todo draggable?
+    //todo span back
     element.innerHTML += '🂠';
     if(vertical) element.innerHTML += '<br>';
   }
+  player.public && player.public.forEach(card => {
+    //todo draggable?
+    //todo span red?
+    element.innerHTML += card;
+    if(vertical) element.innerHTML += '<br>';
+  });
 };
 
 const drawPlayable = (parentContainer, cards) => {
@@ -41,9 +57,11 @@ const initMatch = (players) => {
       username.innerHTML += ' (ME):';
       // show my playable cards
       drawPlayable(element.querySelector('.card #private'), player.private);
+      drawPlayable(element.querySelector('.card #public'), player.public);
+      //todo: draw hidden
     } else {
       username.innerHTML += ':';
-      drawBack(element.querySelector('.back'), player.backface, element.id != 'playern');
+      drawBack(element.querySelector('.card'), player, element.id != 'playern');
     }
   });
 };
@@ -53,6 +71,7 @@ const testplayers = [
     username: 'Mary',
     position: 1,
     backface: 7,
+    hidden: 2,
   },
   {
     username: 'Bob',
@@ -62,13 +81,16 @@ const testplayers = [
   {
     username: 'John',
     position: 3,
-    private: ['🂨', '🂺', '🂻', '🂾','🃖', '🃚', '🃞', '🃍', '🃁'],
+    private: ['🂨', '🂺', '🂻', '🂾','🃖', '🃚', '🃞', '🃍',],
+    public: ['🃁', ],
+    hidden: 2,
   },
   {
     username: 'Alice',
     position: 4,
     backface: 6,
-},
+    public: ['🂩', '🂪', '🂫'],
+  },
 ];
 initMatch(testplayers);
 
@@ -91,7 +113,7 @@ const dragDrop = (event) => {
   console.log('drop target',targetId, event);
   transferElement.style.position =  targetId == 'board' ? 'absolute' : 'relative';
   //todo: if already card on right of, move by x*em
-  transferElement.style.left = targetId == 'board' ? (event.target instanceof HTMLSpanElement ? `calc(${event.target.style.left} + 1em)` : event.layerX + 'px') : 0;
+  transferElement.style.left = targetId == 'board' ? (event.target instanceof HTMLSpanElement ? `calc(${event.target.style.left} + 0.55em)` : event.layerX + 'px') : 0;
   transferElement.style.top = targetId == 'board' ? (event.target instanceof HTMLSpanElement ? event.target.style.top : event.layerY + 'px') : 0;
   if(targetId == 'board') {
     document.getElementById('board').appendChild(transferElement);

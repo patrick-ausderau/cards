@@ -55,6 +55,8 @@ body {
   align-self: top;
 }
 .back {
+  font-size: 200%;
+  background-color: white;
   color: #66f;
 }
 .visible {
