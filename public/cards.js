@@ -87,18 +87,19 @@ const dragOver = (event) => {
 const dragDrop = (event) => {
   event.preventDefault();
   const transferElement = document.getElementById(event.dataTransfer.getData(mime));
-  let targetId = event.target.id;
-  if (event.target instanceof HTMLSpanElement) {
-    targetId = event.target.parentNode.id;
+  const targetId = event.target instanceof HTMLSpanElement ? event.target.parentNode.id : event.target.id;
+  console.log('drop target',targetId, event);
+  transferElement.style.position =  targetId == 'board' ? 'absolute' : 'relative';
+  //todo: if already card on right of, move by x*em
+  transferElement.style.left = targetId == 'board' ? (event.target instanceof HTMLSpanElement ? `calc(${event.target.style.left} + 1em)` : event.layerX + 'px') : 0;
+  transferElement.style.top = targetId == 'board' ? (event.target instanceof HTMLSpanElement ? event.target.style.top : event.layerY + 'px') : 0;
+  if(targetId == 'board') {
+    document.getElementById('board').appendChild(transferElement);
+  } else if (event.target instanceof HTMLSpanElement) {
     event.target.after(transferElement);
   } else {
     event.target.appendChild(transferElement);
   }
-  const rect = event.target.getBoundingClientRect();
-  console.log('drop target',targetId, event, rect);
-  transferElement.style.position =  (targetId == 'board') ? 'absolute' : 'relative';
-  transferElement.style.top = (targetId == 'board') ? event.clientY - rect.top + 'px' : 0;
-  transferElement.style.left = (targetId == 'board') ? event.clientX - rect.left + 'px' : 0;
 };
 
 const privateArea = document.getElementById('private');
