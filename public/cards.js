@@ -95,6 +95,7 @@ const testplayers = [
 initMatch(testplayers);
 
 // Drag and drop
+//todo: drag and drop for stock, discard, trick and hidden
 const mime = 'text/plain';
 const dragStart = (event) => {
   event.dataTransfer.effectAllowed = 'move';
