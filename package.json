@@ -1,0 +1,25 @@
+{
+  "name": "cards",
+  "version": "1.0.0",
+  "description": "online real time card game. only create board and distribute cards, no rules enforced. play whatever you want with your friends.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrick-ausderau/cards.git"
+  },
+  "keywords": [
+    "online",
+    "card",
+    "game"
+  ],
+  "author": "Patrick Ausderau",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/patrick-ausderau/cards/issues"
+  },
+  "homepage": "https://github.com/patrick-ausderau/cards#readme"
+}
