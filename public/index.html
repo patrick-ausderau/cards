@@ -63,8 +63,14 @@
       </section>
       <section id="chat">
         <h2>chat</h2>
+        <ul id="messages"></ul>
+        <form action="">
+          <input id="message" autocomplete="off" placeholder="hello">
+          <button>Send</button>
+        </form>
       </section>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="cards.js"></script>
   </body>
 </html>

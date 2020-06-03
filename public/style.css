@@ -1,5 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: "Liberation Sans", Arial, sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+header, section {
+  padding: 3px;
 }
 #grid {
   display: grid;
@@ -99,4 +109,23 @@ section h2, h1 {
 }
 #public, #private {
   min-height:2.4em;
+}
+form {
+  bottom: 0;
+  width: 100%;
+}
+form input {
+  width: 89%;
+  margin-right: 2px;
+}
+form button {
+  width: 9%;
+}
+#messages {
+  list-style-type: none;
+  max-height: calc(3 * 1.2em);
+  overflow-y: scroll;
+}
+#messages li:nth-child(odd) {
+  background-color: #eee;
 }

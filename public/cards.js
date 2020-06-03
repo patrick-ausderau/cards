@@ -1,6 +1,8 @@
 /**
  * @licstart
  *
+ * Cards. Play cards online as you would in real life.
+ *
  * Copyright Ⓒ 2020 Patrick Ausderau
  *
  * The JavaScript code in this page is free software: you can
@@ -20,11 +22,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see https://www.gnu.org/licenses/
  *
+ * This application integrates components from the following projects:
+ * Socket.IO v2.3.0 | © 2014-2019 Guillermo Rauch | MIT License
+ *
  * @licend
  *
  * @source: https://github.com/patrick-ausderau/cards
  */
 'use strict';
+
+const socket = io();
 // local user sit south. other players counterclockwise positions relative to that.
 const me = 3; //position will come from socket
 const positions = ['players', 'playere', 'playern', 'playerw'];
@@ -76,8 +83,8 @@ const drawPlayable = (parentContainer, cards) => {
 //const initGame; // start a new game, match socre to 0, eventually change player position,...
 const initMatch = (players) => {
   players.forEach(player => {
-      const element = document.getElementById(relativePosition(players.length, me, player.position));
-      const username = element.querySelector('h2');
+    const element = document.getElementById(relativePosition(players.length, me, player.position));
+    const username = element.querySelector('h2');
     username.innerHTML = player.username;
     if(player.position == me) {
       username.innerHTML += ' (ME):';
@@ -163,6 +170,20 @@ publicArea.ondrop = dragDrop;
 board.ondragstart = dragStart;
 board.ondragover = dragOver;
 board.ondrop = dragDrop;
+
+document.querySelector('form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const input = document.getElementById('message');
+  socket.emit('chat message', input.value);
+  input.value = '';
+});
+
+socket.on('chat message', (msg) => {
+  const item = document.createElement('li');
+  item.innerHTML = msg;
+  document.getElementById('messages').appendChild(item);
+  item.scrollIntoView();
+});
 //♠    U2660
 //♡    U2661
 //♢    U2662
