@@ -44,6 +44,15 @@ const relativePosition = (nbplayers, myposition, playerpos) => {
   return positions[playerpos - myposition + nbplayers];
 };
 
+const cardSpan = (card, className, draggable = false, id = '') => {
+  const element = document.createElement('span');
+  if(id != '') element.id = id;
+  element.draggable = draggable;
+  element.className = className;
+  if(card.codePointAt(0) >= '🂱'.codePointAt(0) && card.codePointAt(0) <= '🃎'.codePointAt(0)) element.className += ' red';
+  element.innerHTML = card;
+  return element;
+};
 const drawBack = (element, player, vertical) => {
   const amountBack = player.backface || 0;
   const amountHide = player.hidden || 0;
@@ -56,27 +65,17 @@ const drawBack = (element, player, vertical) => {
   element.innerHTML = `(${amount} cards${amount > 0 ? `: ${amountBack > 0 ? `${vertical ? '<br>' : ''}${amountBack} private${amountHide + amountVisi > 0 ? `, ${vertical ? '<br>' : ''}` : ''}` : ''} ${amountHide > 0 ? `${amountHide} hidden${amountVisi > 0 ? `, ${vertical ? '<br>' : ''}` : ''}` : ''} ${amountVisi > 0 ? `${amountVisi} visible` : ''}` : ''})<br>`;
   for(let i = 0; i < player.backface; i++) {
     //todo draggable?
-    //todo span back
-    element.innerHTML += '🂠';
-    if(vertical) element.innerHTML += '<br>';
+    element.appendChild(cardSpan('🂠', 'back'));
   }
   player.public && player.public.forEach(card => {
     //todo draggable?
-    //todo span red?
-    element.innerHTML += card;
-    if(vertical) element.innerHTML += '<br>';
+    element.appendChild(cardSpan(card, 'visible'));
   });
 };
 
 const drawPlayable = (parentContainer, cards) => {
   cards.forEach((card, pos) => {
-    const element = document.createElement('span');
-    element.id = pos + card;
-    element.draggable = true;
-    element.className = 'visible';
-    if(card.codePointAt(0) >= '🂱'.codePointAt(0) && card.codePointAt(0) <= '🃎'.codePointAt(0)) element.className += ' red';
-    element.innerHTML = card;
-    parentContainer.appendChild(element);
+    parentContainer.appendChild(cardSpan(card, 'visible', true, pos + card));
   });
 };
 
