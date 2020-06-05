@@ -3,71 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Cards</title>
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <header id="title">
-      <h1>title</h1>
+    <header>
+      <h1>Cards</h1>
     </header>
-    <section id="playern">
-      <h2></h2>
-      <div class="card"></div>
-    </section>
-    <section id="socre">
-      <h2>score</h2>
-    </section>
-    <section id="playerw">
-      <h2></h2>
-      <div class="card"></div>
-    </section>
-    <section id="board">
-      <div id="background">
-        <h3>board</h3>
-      </div>
-      <div id="stock">
-        <div class="card">&nbsp;</div>
-        stock/talon
-      </div>
-      <div id="discard">
-        <div class="card">&nbsp;</div>
-        discard
-      </div>
-    </section>
-    <section id="playere">
-      <h2></h2>
-      <div class="card"></div>
-    </section>
-    <section id="players">
-      <h2></h2>
-      <div class="card">
-        <div class="box">
-          <div id="trick" class="back"></div>
-          trick taking
-        </div>
-        <div class="box">
-          <div id="hidden" class="back"></div>
-          hidden/blind (will show if moved to private/public/board)
-        </div>
-        <div class="box">
-          <div id="private"></div>
-          Private (only visible to you)
-        </div>
-        <div class="box">
-          <div id="public"></div>
-          Public (show to every player)
-        </div>
-      </div>
-      <div id="controls">controls</div>
-    </section>
-    <section id="chat">
-      <h2>chat</h2>
-      <ul id="messages"></ul>
-      <form action="">
-        <label>message: <input id="message" autocomplete="off" placeholder="hello"></label>        <input type="submit">
-      </form>
-    </section>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="cards.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

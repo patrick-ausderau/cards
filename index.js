@@ -38,16 +38,29 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log('a user connected', socket.id);
 
   socket.on('disconnect', () => {
     console.log('a user disconnected', socket.id);
   });
 
-  socket.on('chat message', (msg) => {
+  socket.on('chat message', msg => {
     console.log('message:', msg);
     io.emit('chat message', msg);
+  });
+
+  socket.on('in game', fun => {
+    console.log('in game?', socket.rooms);
+    fun(socket.rooms);
+  });
+
+  socket.on('join game', game => {
+    console.log('join game', game);
+    socket.join(game);
+    io.in(game).clients((err, clients) => {
+      console.log('clients in game', clients);
+    });
   });
 });
 
