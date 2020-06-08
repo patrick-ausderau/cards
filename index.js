@@ -34,9 +34,11 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
+app.use(cookieParser());
 
 io.on('connection', socket => {
   console.log('a user connected', socket.id);
@@ -62,6 +64,14 @@ io.on('connection', socket => {
       console.log('clients in game', clients);
     });
   });
+});
+const lang = req => {
+    return (req.cookies.lang) || (req.headers['accept-language'] && req.headers['accept-language'].substring(0, 2)) || 'en';
+};
+app.get('/test', (req, res) => {
+  console.log('cookies', req.cookies);
+  console.log('accept', lang(req));
+  res.cookie('lang', 'demo').send('test');
 });
 
 http.listen(port, () => {

@@ -7,4 +7,4 @@ client and server online card games. Play cards as in real life.
 * [Socket.IO](https://socket.io/) v2.3.0 | © 2014-2019 Guillermo Rauch | MIT License
 * [dotenv](https://www.npmjs.com/package/dotenv) 8.2.0 | © Scott Motte | BSD-2-Clause License
 * [express](https://expressjs.com/) 4.17.1 | © 2009-2013 TJ Holowaychuk, 2013 Roman Shtylman, 2014-2015 Douglas Christopher Wilson | MIT License
-
+* [cookie-parser](https://github.com/expressjs/cookie-parser) 1.4.5 | © 2014 TJ Holowaychuk, 2015 Douglas Christopher Wilson | MIT License
